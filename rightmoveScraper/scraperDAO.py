@@ -10,11 +10,14 @@ def create_table():
                                                     address VARCHAR, agent VARCHAR, bedroom INTEGER, price INTEGER)')
 
 
-def add_data_entry(pId, stat, addr, agen, bed, pric):
-    add_command = f"REPLACE INTO property (propertyId, status, address, agent, bedroom, price) VALUES \
-              ('{pId}', '{stat}', '{addr}', '{agen}', {bed}, {pric})"
-    # print(add_command)
-    c.execute(add_command)
+def add_data_entry(info):
+    # add_command = 'BEGIN TRANSACTION;'
+    # for entry in info:
+    #     propertyId, status, address, agent, numOfBeds, price = entry
+    #     add_command += f"REPLACE INTO property (propertyId, status, address, agent, bedroom, price) VALUES \
+    #               ('{propertyId}', '{status}', '{address}', '{agent}', {numOfBeds}, {price});"
+    c.executemany('REPLACE INTO property (propertyId, status, address, agent, bedroom, price) VALUES (?,?,?,?,?,?)',
+                  info)
     conn.commit()
 
 
