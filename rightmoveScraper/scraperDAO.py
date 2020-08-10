@@ -6,16 +6,11 @@ c = conn.cursor()
 
 
 def create_table():
-    c.execute('CREATE TABLE IF NOT EXISTS property(propertyId INTEGER CONSTRAINT constraint_name PRIMARY KEY, status VARCHAR, \
-                                                    address VARCHAR, agent VARCHAR, bedroom INTEGER, price INTEGER)')
+    c.execute('CREATE TABLE IF NOT EXISTS property(propertyId INTEGER CONSTRAINT constraint_name PRIMARY KEY, '
+              'status VARCHAR, address VARCHAR, agent VARCHAR, bedroom INTEGER, price INTEGER)')
 
 
 def add_data_entry(info):
-    # add_command = 'BEGIN TRANSACTION;'
-    # for entry in info:
-    #     propertyId, status, address, agent, numOfBeds, price = entry
-    #     add_command += f"REPLACE INTO property (propertyId, status, address, agent, bedroom, price) VALUES \
-    #               ('{propertyId}', '{status}', '{address}', '{agent}', {numOfBeds}, {price});"
     c.executemany('REPLACE INTO property (propertyId, status, address, agent, bedroom, price) VALUES (?,?,?,?,?,?)',
                   info)
     conn.commit()
@@ -47,12 +42,6 @@ def update():
     conn.commit()
 
 
-def clear_db(databaseName):
-    c.execute(f'DELETE FROM {databaseName}')
-    conn.commit()
-
-
 def close_connection():
     c.close()
     conn.close()
-
