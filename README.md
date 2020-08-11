@@ -3,7 +3,7 @@ A web scraper to monitor price histories on Rightmove implemeted in Python.
 
 ## Technologies:
 
-#### 1. urllib for HTML request
+#### 1. urllib for http requests
 
 #### 2. BeautifulSoup 4 for extracting data
 
