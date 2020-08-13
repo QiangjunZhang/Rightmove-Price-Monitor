@@ -57,7 +57,7 @@ def get_totalpages(soup):
     return soup.find_all('Page')
 
 
-if __name__ == '__main__':
+def main():
     db.create_table()
     target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=POSTCODE' \
                  '%5E4029167&radius=1.0&sortType=10&index=0&propertyTypes=&includeSSTC=true&mustHave=' \
@@ -76,3 +76,7 @@ if __name__ == '__main__':
 
     print(db.get_total_num())
     db.close_connection()
+
+
+if __name__ == '__main__':
+    main()
