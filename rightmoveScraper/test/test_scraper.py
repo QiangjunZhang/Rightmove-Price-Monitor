@@ -5,9 +5,9 @@ import unittest
 class TestScraper(unittest.TestCase):
 
     def test_scraper(self):
-        target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=' \
-                     'POSTCODE%5E514951&radius=2.0&sortType=10&index=1008&propertyTypes=&includeSSTC' \
-                     '=true&mustHave=&dontShow=&furnishTypes=&keywords='
+        target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?' \
+                     'locationIdentifier=OUTCODE%5E1569&index=0&propertyTypes=' \
+                     '&includeSSTC=false&mustHave=&dontShow=&furnishTypes=&keywords='
         soups = scraper.pre_soup(target_web)
         blocks = scraper.get_block(soups[0])
         info = [scraper.get_info(block) for block in blocks]
@@ -15,9 +15,9 @@ class TestScraper(unittest.TestCase):
         # self.assertEqual(info, '')
 
     def test_web_requests(self):
-        target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=POSTCODE' \
-                     '%5E514951&radius=3.0&sortType=10&index=0&propertyTypes=&includeSSTC=true&mustHave=' \
-                     '&dontShow=&furnishTypes=&keywords='
+        target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?' \
+                     'locationIdentifier=OUTCODE%5E1569&index=0&propertyTypes=' \
+                     '&includeSSTC=false&mustHave=&dontShow=&furnishTypes=&keywords='
         soups = scraper.pre_soup(target_web)
         total_num = scraper.get_count(soups[0])
         print(total_num)

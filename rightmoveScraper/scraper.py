@@ -58,10 +58,11 @@ def get_totalpages(soup):
 
 
 def main():
-    db.create_table()
-    target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?locationIdentifier=POSTCODE' \
-                 '%5E4029167&radius=1.0&sortType=10&index=0&propertyTypes=&includeSSTC=true&mustHave=' \
-                 '&dontShow=&furnishTypes=&keywords='
+    conn = db.open_connection()
+    db.create_table(conn)
+    target_web = 'https://www.rightmove.co.uk/property-for-sale/find.html?' \
+                     'locationIdentifier=OUTCODE%5E1569&index=0&propertyTypes=' \
+                     '&includeSSTC=false&mustHave=&dontShow=&furnishTypes=&keywords='
     soups = pre_soup(target_web)
     total_num = get_count(soups[0])
 
@@ -71,11 +72,11 @@ def main():
         nextPage = target_web.replace('index=0', f'index={index*24}')
         soups = pre_soup(nextPage)
         blocks = get_block(soups[0])
-        info = [get_info(block) for block in blocks]
-        db.add_data_entry(info)
+        instance_list = [get_info(block) for block in blocks]
+        db.add_data_entry(conn, instance_list)
 
-    print(db.get_total_num())
-    db.close_connection()
+    print(db.get_total_num(conn))
+    db.close_connection(conn)
 
 
 if __name__ == '__main__':
